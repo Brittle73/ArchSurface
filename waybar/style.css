@@ -1,0 +1,158 @@
+*{
+    /* border-radius: 4px; */
+    /* font-family: 'Operator Mono SSm Book', 'Helvetica', 'Font Awesome 6 Free'; */
+    /* font-family: FontAwesome, Roboto, Helvetica; */
+    font-family: "SymbolsNerdFont", "Helvetica Neue", "RobotoMono Nerd Font";
+    font-size: 13pt;
+    min-height: 0px;
+}
+
+window#waybar {
+    /*background-color: #1E1E28;*/
+    background-color: transparent;
+    /*background: @background;*/
+    color: #DADAE8;
+    transition-property: background-color;
+    transition-duration: .2s;
+    border-radius: 0px;
+
+/*}
+
+window#waybar.hidden {
+   opacity: 0.2;*/
+
+}
+
+#tooltip {
+	background: #1E1E28;
+	border-radius: 15px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #a4b9ef;
+}
+
+#workspaces {
+    background: #332E41;
+    /*opacity: 0.8;*/
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+}
+
+#workspaces button {
+    padding-left: 8px;
+    padding-right: 8px;
+    min-width: 0;
+    color: #DADAE8;
+    /*opacity: 0.9;*/
+}
+
+#workspaces button.focused {
+    color: #A4B9EF;
+}
+
+#workspaces button.urgent {
+    color: #F9C096;
+}
+
+#workspaces button:hover {
+    background: #332e41;
+    border-color: #332e41;
+	color: #A4B9EF;
+}
+
+#clock {
+	background: #332e41;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 15px 15px 15px 15px;
+	/*opacity: 0.6;*/
+}
+
+#battery {
+	padding-left: 2px;
+	padding-right: 10px;
+	background: #332E41;
+	/*background: transparent;*/
+	margin-left: 0px;
+	margin-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 0px 15px 15px 0px;
+}
+
+#pulseaudio { 
+	padding-left: 15px;
+	padding-right: 10px;
+	background: #332E41;
+	margin-left: 0px;
+	margin-right: 0pc;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 15px 0px 0px 15px;
+
+}
+
+#network {
+    padding-left: 10px;
+    padding-right: 2px;
+    background: #332E41;
+    /* border-radius: 15px 0px 0px 15px; */
+    border-radius: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+#cpu {
+    background: #332E41;
+    padding-left: 2px;
+    padding-right: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 0px 0px 0px 0px;
+
+}
+
+#backlight {
+        background: #332E41;
+        padding-left: 2px;
+        padding-right: 10px;
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-radius: 0px;
+
+}
+
+#custom-power {
+	background: #332E41;
+	padding-left: 2px;
+	padding-right: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 15px;
+
+}
+
+#memory {
+	background: #332E41;
+	padding-left: 2px;
+	padding-right: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 0px;
+
+}        

@@ -1,0 +1,113 @@
+{
+    "position": "top", 
+    "modules-left": ["tray", "sway/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "cpu", "memory", "network", "backlight", "battery", "custom/powermenu"],
+    "margin-left": 10,
+    "margin-right": 10,
+    //"mode": "dock",
+    // Modules configuration
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": true,
+		"format": "{icon}",
+	 	"persistent_workspaces": {
+	 		"1": [],
+	 		"2": [],
+	 		"3": [],
+	 		"4": [],
+	 		"5": [],
+	 		"6": [],
+	 		"7": [],
+	 		"8": [],
+	 		"9": [],
+	 		"10": []
+	},
+        "format-icons": {
+            "default": "",
+            "urgent": "",
+            "focused": "",
+         }
+    },
+	"clock": {
+//		"format": "<span foreground='#C6AAE8'>  </span>{:%a %b %d %I:%M %p}",
+//	"format": "   {:%a %d %I:%M %p}",
+	"format": "   {:%a %I:%M %p}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+	},
+	"battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15,
+        	},
+		    "format": "<span size='13000' foreground='#B1E3AD'>{icon}</span> {capacity}%",
+		    "format-warning": "<span size='13000' foreground='#B1E3AD'>{icon}</span> {capacity}%",
+		    "format-critical": "<span size='13000' foreground='#E38C8F'>{icon}</span> {capacity}%",
+		    "format-charging": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
+		    "format-plugged": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
+		    "format-alt": "<span size='13000' foreground='#B1E3AD'>{icon}</span> {time}",
+		    "format-full": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
+        	"format-icons": ["", "", "", "", ""],
+            "tooltip-format": "{time}"
+	},
+	"network": {
+        "format-wifi": "<span size='13000'> </span>{essid}",
+        "format-ethernet": "<span size='13000'>󰤭</span> Disconnected",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "<span size='13000'> </span>Disconnected",
+		"tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
+	//"on-click": "exec nmtui"
+	},
+	"pulseaudio": {
+		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"format": "<span size='13000'>{icon}</span> {volume}%",
+        "format-muted": "<span size='14000'></span>",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [" ", " "]
+	
+	},
+//[custom: power - https://github.com/Alexays/Waybar/issues/202]
+	"custom/powermenu": {
+//	"format": "     ",
+	"format": "",
+//	"format": "    ",
+//	"format": "{icon}",
+//	"format-icons": [""],
+//	"format": "<span size='13000'>⏻</span>",
+//      "interval": "once",
+//      "on-click": "nwgbar -c 5 -r 5 -p layer-shell",
+	"on-click": "nwgbar",
+	"tooltip": false
+//	"max-length": 50
+	
+	},   
+//[custom / CPU Stats} (https://github.com/Alexays/Waybar/wiki/Configuration)
+        "cpu": {
+	"interval": 5,
+	"format": "{usage}%  ",
+	"max-length": 100
+        
+
+	 },
+//[backlight]
+	"backlight": {
+	"device": "intel_backlight",
+	"format": "span size='13000'></span> {percent}%",
+	//"format-icons": ["U+E0F0"],
+	// "on-scroll-down": "light -A 10%",
+	// "on-scroll-up": "light -U 10%"
+	
+	},
+//[memory]
+	"memory": {
+		"format": "MEM {}%"
+	}
+}
+}
+
