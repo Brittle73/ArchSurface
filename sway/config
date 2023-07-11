@@ -66,7 +66,7 @@ set $right d
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    #bindsym $mod+Return exec $term
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -268,12 +268,7 @@ set $term alacritty
 
 #[nwg-panel (instead of waybar)]
 exec_always nwg-panel
-
-#[menu (uLauncher)]
-#set $menu ulauncher
-
-#[menu (nwggrid)]
-#set $menu nwggrid -p
+#exec nwg-panel
 
 #[menu (nwg-drawer)]
 set $menu nwg-drawer
@@ -311,12 +306,20 @@ bindsym $mod+l exec $lockman
 bindsym $mod+Shift+w border toggle
 
 #[border defaults]
-default_border pixel 4
-default_floating_border pixel 4
+#[first exclude fullscreen, single-window Alacritty just because, then apply defaults to rest]
+#for_window [app_id=Alacritty] floating enable
+#for_window [app_id=Alacritty] resize set width 1400 height 900
+#for_window [app_id=Alacritty] hide_edge_borders none
+#for_window [app_id=Alacritty] smart_borders off
+default_border pixel 3
+default_floating_border pixel 3
 #hide_edge_borders --i3 smart
-#smart_borders on
-#smart_gaps on
+#hide_edge_borders smart
+smart_borders on
+smart_gaps on
 #titlebar_border_thickness 0
+#gaps outer 2
+gaps inner 5
 
 #[enable tap on touchpad]
 input type:touchpad {
@@ -344,13 +347,13 @@ input type:mouse {
 
 #[backlight keys/control]
 #light
-bindsym XF86MonBrightnessDown exec light -U 2
-bindsym XF86MonBrightnessUp exec light -A 2
+#bindsym XF86MonBrightnessDown exec light -U 2
+#bindsym XF86MonBrightnessUp exec light -A 2
 
 #[louder/quieter]
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+#bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+#bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+#bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 #[media player controls]
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -392,17 +395,19 @@ exec_always nm-applet --indicator
 
 #[Sway custom wallpaper]
 #output * bg /usr/share/backgrounds/mine/meteroro_resized_surface_V2.png fill
-exec ~/.azotebg
+#exec ~/.azotebg (Azote was not working for all displays, testing out normal swaybg)
+output "*" bg /usr/share/backgrounds/mine/in_use/meteroro_resized_surface_V2.png fill
 
 #[nwg-panel autostart]
-exec_always nwg-panel
+exec nwg-panel
 
 #[workspace configuration]
 
 #workspace 10 weird shit
 workspace 10
 #exec gimp
-exec xournalpp
+#exec xournalpp
+#exec $term -e authy
 
 #workspace 9 sensitivities
 #exec $TERM -e gimp
@@ -422,10 +427,10 @@ workspace 5
 exec evolution
 
 workspace 4
-exec franz
+#exec franz
 #exec discord
-set $fuckdiscord exec bash ~/.config/sway/fuckdiscord.sh
-exec $fuckdiscord
+#set $fuckdiscord exec bash ~/.config/sway/fuckdiscord.sh
+#exec $fuckdiscord
 #exec swaymsg "workspace 4; exec discord"
 
 #workspace 3 $disp_1 $disp_2 $disp_3
@@ -451,10 +456,10 @@ workspace 1
 exec $term -e btop
 
 #[grim/screenshot hotkey]
-bindsym $mod+Shift+Print exec grim - | wl-copy
+bindsym $mod+Alt+Print exec grim - | wl-copy && notify-send "GRIM! (full screenshot) :)"
 
 #[slurp/selected screenshot hotkey]
-bindsym $mod+Shift+Home exec slurp - | wl-copy
+bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy && notify-send "SLURP'd! :)"
 
 #[allow popups inside of fullscreen window]
 popup_during_fullscreen smart
@@ -465,9 +470,9 @@ floating_modifier Shift normal
 #[allow dragging of tiled windows (test)]
 tiling_drag enable
 
-#[idle-inhibitor (WIP)]
-bindsym $mod+i exec sway inhibit_idle visible
-bindsym $mod+Shift+i exec sway inhibit_idle none
+#[idle-inhibitor]
+bindsym $mod+i exec sway inhibit_idle visible && notify-send "Sway idle inhibit ENABLED"
+bindsym $mod+Shift+i exec sway inhibit_idle none && notify-send "Sway idle inhibit DISABLED"
 
 #[physical mouse settings]
 #  input "wl_pointer" {
@@ -487,3 +492,49 @@ bindsym $mod+e exec thunar
 
 #[autostart udiskie for nfs share (WIP)]
 #udiskie -2 &
+
+#[attempted cava setup for consistent background synthesizer [WIP]
+#below code is just to get started / https://gitlab.com/Milhax/rice/-/blob/main/.config/i3/config
+#exec_always --no-startup-id killall cava; exec /home/hack3900/Documents/rice/i3bgwin/i3bgwin urxvt -depth 32 -bg '[00]black' --color6 '[50]cyan' +sb -embed {windowid} -e cava
+#exec_always --no-startup-id killall cava; exec /home/bbrittle/custom_wallpapers/meteroro_resized_surface_V2.png urxvt -depth 32 -bg '[00]black' --color6 '[50]cyan' +sb -embed {windowid} -e cava
+#exec_always $TERM -v -o window.opacity=0.0 -o decorations=none -o startup.mode=full --config-file:/home/bbrittle/.config/alacritty/cava.alacritty.yml --embed {windowid} -e cava
+
+#[For URXVT/Alacritty-Cava thing above - attempting to create window class Alacritty-Cava and make it borderless/fullscreen]
+#for_window [app_id="alacritty"] border none
+#for_window [app_id="rxvt-unicode"] border none
+
+#[attempt at glava again...]
+#exec_always sh -c 'sleep 10 && glava --desktop'
+
+#[custom $TERM launch hotkeys]
+# Start a terminal (floating)
+#    bindsym $mod+Return exec $term && focus_floating
+    bindsym $mod+Return exec $term, focus_floating, resize set 1400 900; move position center
+# Start a terminal (normal)
+    bindsym $mod+Shift+Return exec $term 
+
+#[touchpad gestures (WIP)]
+# Allow switching between workspaces with left and right swipes
+  		bindgesture swipe:right workspace prev
+  		bindgesture swipe:left workspace next
+
+#[SwayOSD - Caps Lock/volume/brightness notification attempt (WIP)
+# Sink volume raise optionally with --device
+bindsym XF86AudioRaiseVolume exec swayosd --output-volume raise
+# Sink volume lower optionally with --device
+bindsym XF86AudioLowerVolume exec  swayosd --output-volume lower
+# Sink volume toggle mute
+bindsym XF86AudioMute exec swayosd --output-volume mute-toggle
+# Source volume toggle mute
+bindsym XF86AudioMicMute exec swayosd --input-volume mute-toggle
+
+# Capslock
+bindsym --release Caps_Lock exec swayosd --caps-lock
+
+# Capslock but specific LED name (/sys/class/leds/)
+#bindsym --release Caps_Lock exec swayosd --caps-lock-led input19::capslock
+
+# Brightness raise
+bindsym XF86MonBrightnessUp exec swayosd --brightness raise
+# Brightness lower
+bindsym XF86MonBrightnessDown exec swayosd --brightness lower
