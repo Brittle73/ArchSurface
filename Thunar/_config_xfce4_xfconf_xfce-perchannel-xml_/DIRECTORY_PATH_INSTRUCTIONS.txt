@@ -1,0 +1,3 @@
+#  Personal instructions for Thunar backup... may or may not work...
+
+Path: ~/.config/xfce4/xfconf/xfce-perchannel-xml/

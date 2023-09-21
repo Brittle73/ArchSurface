@@ -1,0 +1,9 @@
+{
+  "\\.pdf$": "zathura",
+  "\\.svg$": "gimp",
+  "\\.(jpg|png|tiff|gif)$": "qimgv",
+  "\\.(mp3|ogg|flac|wav|wma)$": "audacious",
+  "\\.(avi|mp4|mkv|mov|wav)$": "mpv",
+  "\\.(doc|docx|xls|xlsx)$": "libreoffice",
+  "\\.(.html|.xhtml)$": "google-chrome"
+}

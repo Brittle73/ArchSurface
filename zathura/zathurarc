@@ -1,0 +1,7 @@
+#Zathura Config
+#ref: https://wiki.archlinux.org/title/zathura
+
+#Settings:
+
+#enable clipboard in Zathura:
+set selection-clipboard clipboard

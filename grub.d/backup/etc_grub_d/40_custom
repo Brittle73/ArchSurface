@@ -1,0 +1,22 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+#[custom GRUB entries]
+
+#[memtest86-efi]
+menuentry "MemTest86-EFI" {
+	/boot/memtest86-efi/memtest.bin
+}
+
+#[reboot]
+menuentry "Reboot" {
+	reboot
+}
+
+#[shutdown]
+menuentry "Shut Down" {
+	halt
+}
