@@ -261,19 +261,18 @@ bindswitch --reload --locked lid:off output $laptop enable
 #[terminal]
 set $term alacritty
 
-#[waybar v2]
-#bar { 
-#  swaybar_command waybar
-#}
-
 #[nwg-panel (instead of waybar)]
 exec_always nwg-panel
-#exec nwg-panel
 
 #[menu (nwg-drawer)]
-set $menu nwg-drawer
-exec_always nwg-drawer -r
-bindsym $mod+Space exec nwg-drawer
+#set $menu nwg-drawer
+#exec_always nwg-drawer -is 38 -nofs -r -spacing 16
+#bindsym $mod+Space exec nwg-drawer
+#set $menu tofi-run
+#exec_always tofi-run
+#bindsym $mod+Space exec tofi-run
+set $menu tofi-run | xargs swaymsg exec --
+bindsym $mod+Space exec $menu
 
 #nwg-drawer xdg-open alternative (actual file located in ~/.config/nwg-panel/preferred-apps.json)
 #{
@@ -299,9 +298,9 @@ set $calendar $term_float khal interactive
 
 #[swaylock/idle/-effects lockscreen test (WIP:theming works great for the manual lock screen bindsym below, but no longer locking on its own now with this...)]
 exec swayidle -w \
-          timeout 1200 'swaylock --clock --indicator -l --grace 5 --fade-in 1.5 --submit-on-touch --ignore-empty-password --bs-hl-color d7d7d5 --key-hl-color 0abdc6 --ring-color d300c4 --ring-clear-color 00ff00 --ring-ver-color d300c4 --ring-wrong-color FF0000 --inside-color 000b1e --inside-clear-color 000b1e --inside-ver-color 000b1e --inside-wrong-color f57800 --inside-caps-lock-color d7d7d5 --text-color 0abdc6 --text-clear-color 0abdc6 --text-ver-color 0abdc6 --text-wrong-color d7d7d5 --line-color 123e7c --ring-clear-color 00FF00 --ring-caps-lock-color F57800 --ring-wrong-color FF0000 --screenshots -effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 32x2 --datestr "%a %m.%d.%Y" --timestr  "%I:%M %p"' \
-          timeout 1800 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-          before-sleep 'swaylock --clock --indicator -l --grace 5 --fade-in 1.5 --submit-on-touch --ignore-empty-password --bs-hl-color d7d7d5 --key-hl-color 0abdc6 --ring-color d300c4 --ring-clear-color 00ff00 --ring-ver-color d300c4 --ring-wrong-color FF0000 --inside-color 000b1e --inside-clear-color 000b1e --inside-ver-color 000b1e --inside-wrong-color f57800 --inside-caps-lock-color d7d7d5 --text-color 0abdc6 --text-clear-color 0abdc6 --text-ver-color 0abdc6 --text-wrong-color d7d7d5 --line-color 123e7c --ring-clear-color 00FF00 --ring-caps-lock-color F57800 --ring-wrong-color FF0000 --screenshots -effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 32x2 --datestr "%a %m.%d.%Y" --timestr "%I:%M %p"'
+          timeout 1800 'swaylock --clock --indicator -l --grace 10 --fade-in 2 --submit-on-touch --ignore-empty-password --bs-hl-color d7d7d5 --key-hl-color 0abdc6 --ring-color d300c4 --ring-clear-color 00ff00 --ring-ver-color d300c4 --ring-wrong-color FF0000 --inside-color 000b1e --inside-clear-color 000b1e --inside-ver-color 000b1e --inside-wrong-color f57800 --inside-caps-lock-color d7d7d5 --text-color 0abdc6 --text-clear-color 0abdc6 --text-ver-color 0abdc6 --text-wrong-color d7d7d5 --line-color 123e7c --ring-clear-color 00FF00 --ring-caps-lock-color F57800 --ring-wrong-color FF0000 --screenshots -effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 32x2 --datestr "%a %m.%d.%Y" --timestr  "%I:%M %p"' \
+          timeout 4700 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          before-sleep 'swaylock --clock --indicator -l --grace 10 --fade-in 2 --submit-on-touch --ignore-empty-password --bs-hl-color d7d7d5 --key-hl-color 0abdc6 --ring-color d300c4 --ring-clear-color 00ff00 --ring-ver-color d300c4 --ring-wrong-color FF0000 --inside-color 000b1e --inside-clear-color 000b1e --inside-ver-color 000b1e --inside-wrong-color f57800 --inside-caps-lock-color d7d7d5 --text-color 0abdc6 --text-clear-color 0abdc6 --text-ver-color 0abdc6 --text-wrong-color d7d7d5 --line-color 123e7c --ring-clear-color 00FF00 --ring-caps-lock-color F57800 --ring-wrong-color FF0000 --screenshots -effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 32x2 --datestr "%a %m.%d.%Y" --timestr "%I:%M %p"'
 
 #[swayidle-effects (still WIP, trying to make pause media before locking)]
 #exec swayidle -w \
@@ -491,7 +490,14 @@ floating_modifier Shift normal
 tiling_drag enable
 
 #[idle-inhibitor]
-bindsym $mod+i exec sway inhibit_idle visible && notify-send "Sway idle inhibit ENABLED"
+#bindsym $mod+i exec sway inhibit_idle visible && notify-send "Sway idle inhibit ENABLED"
+#NEW - $mod+i now not only enables inhibit_idle and sends a notification to tell you so, but it also launches a terminal window and turns on dvd-screensaver-sway!
+#^^^Next task is to resize the alacritty window to better fit the neofetch output // source https://github.com/alacritty/alacritty/issues/3818
+bindsym $mod+i exec sway inhibit_idle visible && notify-send "Sway idle inhibit ENABLED" && exec alacritty -o font.size=10 -e bash -c "neofetch && exec dvd-screensaver-sway"
+#
+#Attempting with st term emu to avoid w3m compatibility issues with Alacritty
+#Notes: more or less works with st -g=180,20 -e bash -c "neofetch && dvd-screensaver-sway, but the background and window sizing is not right, so reverting back for now
+#bindsym $mod+i exec sway inhibit_idle visible && notify-send "Sway idle inhibit ENABLED" && exec st -g=100,100 -e bash -c "neofetch && exec dvd-screensaver-sway"
 bindsym $mod+Shift+i exec sway inhibit_idle none && notify-send "Sway idle inhibit DISABLED"
 
 #[physical mouse settings]
@@ -531,7 +537,7 @@ bindsym $mod+e exec thunar
 #    bindsym $mod+Return exec $term && focus_floating
     bindsym $mod+Return exec $term, focus_floating, resize set 1400 900; move position center
 # Start a terminal (normal)
-    bindsym $mod+Shift+Return exec $term 
+#    bindsym $mod+Shift+Return exec $term (see below for st term) 
 
 #[touchpad gestures (WIP)]
 # Allow switching between workspaces with left and right swipes
@@ -632,3 +638,9 @@ bindsym $mod+n exec swaync-client -t -sw
 
 #[hotkey to launch Authy]
 bindsym $mod+Shift+a exec authy
+
+#[Attempt at dvd-screensaver-sway floating terminal window size]
+exec_always alacritty --class 'dvd' --title 'dvd-screensaver' -e /home/bbrittle/.config/alacritty/scripts/dvd-screensaver.sh
+
+#[Launch st terminal emulator using hotkey mod + shift + enter]
+bindsym $mod+Shift+Return exec st
