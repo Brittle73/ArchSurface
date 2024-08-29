@@ -348,7 +348,8 @@ input type:mouse {
 
 #[kb/m wake from idle/sleep/hibernation TEST]
 #seat seat0 idle_wake keyboard pointer touch
-seat seat0 idle_wake keyboard pointer
+#seat seat0 idle_wake keyboard pointer
+#^^^Deprecated
 
 #[touchscreen keeb]
 # if no compatible Wayland compositor is running yet \
